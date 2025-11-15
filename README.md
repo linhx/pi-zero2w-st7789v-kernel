@@ -1,30 +1,11 @@
-Linux kernel
-============
+Follow this page to build the kernel https://www.raspberrypi.com/documentation/computers/linux_kernel.html#kernel
 
-There are several guides for kernel developers and users. These guides can
-be rendered in a number of formats, like HTML and PDF. Please read
-Documentation/admin-guide/README.rst first.
+--- 
 
-In order to build the documentation, use ``make htmldocs`` or
-``make pdfdocs``.  The formatted documentation can also be read online at:
+To patch existing OS:
 
-    https://www.kernel.org/doc/html/latest/
-
-There are various text files in the Documentation/ subdirectory,
-several of them using the Restructured Text markup notation.
-
-Please read the Documentation/process/changes.rst file, as it contains the
-requirements for building and running the kernel, and information about
-the problems which may result by upgrading your kernel.
-
-Build status for rpi-6.1.y:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.1.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.1.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
-
-Build status for rpi-6.6.y:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.6.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.6.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
-
-Build status for rpi-6.12.y:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.12.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.12.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
+1. Get current .config file inside the PI OS: `cp /boot/config-$(uname -r) .config`. Copy it to the Kernel source directory.
+2. At the Step [`Build configuration`](https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiled-build-configuration) in the guide, instead of running `make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig`, we run:
+   2.1. For 64bit: `make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig`
+   2.2. For 32bit: `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- olddefconfig`
+3. Just follow the guide for the next steps.
